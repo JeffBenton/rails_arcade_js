@@ -5,6 +5,7 @@ class GamesController < ApplicationController
 
   def index
     params[:manufacturer_id].nil? ? @games = Game.all : @games = Manufacturer.find_by(id: params[:manufacturer_id]).games
+    render json: @games, staus: 201
 
     # @all_games = Game.all.order(name: :asc)
     # @playable_game = Game.playable(current_user.tokens)
