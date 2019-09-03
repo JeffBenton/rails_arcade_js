@@ -1,0 +1,21 @@
+
+<%= render partial: "layouts/errors", locals: { issue: @user } %>
+
+<div class="row">
+  <div class="col offset-md-4 col-md-4">
+    <%= form_for @user do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <br>
+      <%= f.submit "Sign Up", class: "btn btn-primary" %>
+    <% end %>
+    <p>or <%= link_to "sign in", root_path %></p>
+  </div>
+</div>

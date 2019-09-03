@@ -1,0 +1,9 @@
+<% if issue.errors.any? %>
+  <div id="error_explanation">
+    <% issue.errors.full_messages.each do |msg| %>
+      <div style="color: red;" data-alert class="col text-center alert-box radius">
+        <%= msg %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

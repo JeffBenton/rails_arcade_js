@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col offset-md-4 col-md-4">
+    <%= form_tag '/signin', method: 'post' do %>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+      <div class="form-group">
+        <%= label_tag :name %><br>
+        <%= text_field_tag :name, "", class: "form-control" %><br>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :password %> <br>
+        <%= password_field_tag :password, "", class: "form-control" %><br>
+      </div>
+
+      <%= submit_tag "Sign In", class: "btn btn-primary" %>
+    <% end %>
+    <p>or <%= link_to "sign up", new_user_path %></p>
+    <p>or <%= link_to "log in with facebook", "/auth/facebook" %></p>
+  </div>
+</div>

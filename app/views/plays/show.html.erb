@@ -1,0 +1,15 @@
+<div class="row">
+  <h2>Now playing <%= @play.game.name %></h2>
+</div>
+
+<div class="row">
+  <h3>Difficulty: <%= @play.difficulty %></h3>
+</div>
+<div class="row">
+  <h3>Have fun!</h3>
+</div>
+
+<div class="row">
+  <p class="col"><%= link_to "Play again!", game_path(@play.game) %></p>
+  <p class="col"><%= link_to "Back to browse", games_path %></p>
+</div>

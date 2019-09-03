@@ -1,0 +1,16 @@
+<div class="row">
+  <h2 class="col col-md-10"><%= @manufacturer.name %></h2>
+  <% if current_user.admin %>
+    <%= button_to "Edit", edit_manufacturer_path(@manufacturer), method: 'get', class: "btn btn-primary"%>
+  <% end %>
+</div>
+
+<% if current_user.admin %>
+  <div class="row">
+    <%= link_to "Create Game", new_manufacturer_game_path(@manufacturer) %>
+  </div>
+<% end %>
+
+<div class="row">
+  <%= link_to "Show Games", manufacturer_games_path(@manufacturer) %>
+</div>

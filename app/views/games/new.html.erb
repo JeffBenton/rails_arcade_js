@@ -1,0 +1,32 @@
+<%= render partial: "layouts/errors", locals: { issue: @game } %>
+
+<div class="row">
+  <div class="col offset-md-4 col-md-4">
+    <%= form_for @game do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= f.label :token_cost %>
+        <%= f.number_field :token_cost, class: "form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= f.label :manufacturer %>
+        <%= collection_select :game, :manufacturer_id, Manufacturer.all, :id, :name, include_blank: 'Choose a Manufacturer' %>
+      </div>
+
+      <h4>Or create a new manufacturer</h4>
+      <%= f.fields_for :manufacturer, @game.build_manufacturer do |m_fields| %>
+        <div class="form-group">
+          <%= m_fields.label :manufacturer_name %>
+          <%= m_fields.text_field :name, class: "form-control" %>
+        </div>
+      <% end %>
+
+      <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

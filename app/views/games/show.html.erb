@@ -1,0 +1,24 @@
+<div class="row">
+  <h2 class="col col-md-10"><%= @game.name %></h2>
+  <% if current_user.admin %>
+    <%= button_to "Edit", edit_game_path(@game), method: 'get', class: "btn btn-primary"%>
+    <%= button_to "Delete", game_path(@game), method: 'delete', class: "btn btn-danger"%>
+  <% end %>
+</div>
+
+<div class="row">
+  <h4 class="col"><%= @game.token_cost %> tokens.</h4>
+</div>
+
+<div class="row">
+  <%= form_tag "/play", method: "post" do %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag 'plays[game_id]', @game.id %>
+    <%= hidden_field_tag 'plays[user_id]', session[:user_id] %>
+    <div class="form_group">
+      <%= select_tag 'plays[difficulty]', options_for_select(%w[Easy Medium Hard]) %>
+    </div>
+    <br>
+    <%= button_tag "Play", class: "btn btn-primary"%>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<div class="row">
+  <% if current_user.admin %>
+    <%= button_to "Create Manufacturer", new_manufacturer_path(@manufacturer), method: 'get', class: "btn btn-primary"%>
+  <% end %>
+</div>
+<br>
+<div class="row">
+  <% @manufacturers.each do |manufacturer| %>
+    <div class="col col-md-3">
+      <%= link_to manufacturer.name, manufacturer_path(manufacturer) %>
+    </div>
+  <% end %>
+</div>
