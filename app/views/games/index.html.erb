@@ -11,11 +11,6 @@
     <div class="col" id="all-games">
 
     </div>
-    <%# @games.order(name: :asc).each do |game| %>
-<!--      <div class="col">-->
-        <%#= link_to game.name, game_path(game) %>
-<!--      </div>-->
-    <%# end %>
   </div>
   <div class="col col-md-6">
     <h3>Playable Games</h3>
@@ -23,38 +18,5 @@
     <div class="col" id="playable-games">
 
     </div>
-    <%# @games.playable(current_user.tokens).each do |game| %>
-<!--      <div class="col">-->
-        <%#= link_to game.name, game_path(game) %>
-<!--      </div>-->
-    <%# end %>
   </div>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-  $(() => {
-      $(".all-games").on("click", () => {
-          if($("#all-games")[0].innerText == "") {
-              $.getJSON("/games", data => {
-                  for (const i in data) {
-                      const game_link = `<div><a href="/games/${data[i].id}">${data[i].name}</a></div>`;
-                      $("#all-games").append(game_link);
-                  }
-              });
-          }
-      });
-  });
-
-  $(() => {
-     $(".playable-games").on("click",() => {
-         if($("#playable-games")[0].innerText == "") {
-             $.getJSON("/games/playable", data => {
-                 for (const i in data) {
-                     const game_link = `<a href="/games/${data[i].id}">${data[i].name}</a> <br>`;
-                     $("#playable-games").append(game_link);
-                 }
-             });
-         }
-     });
-  });
-</script>
