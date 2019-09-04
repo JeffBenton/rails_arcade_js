@@ -14,6 +14,10 @@ class GamesController < ApplicationController
     # @playable_game = Game.playable(current_user.tokens)
   end
 
+  def playable
+    @games = Game.playable(current_user.tokens)
+    render json: @games
+  end
 
   def cheapest
     @games = Game.cheapest
