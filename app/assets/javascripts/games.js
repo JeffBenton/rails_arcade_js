@@ -72,13 +72,21 @@ class Game {
 
         $(".game-content").html(content);
         $("#plays_game_id")[0].value = this.id;
-        console.log(this.prevGame());
+
+        this.prevGame().then(game => {
+            $("#previous-game")[0].innerText = `< ${game.name}`;
+            $("#previous-game").attr("data-id", game.id);
+        });
+
+        this.nextGame().then(game => {
+            $("#next-game")[0].innerText = `${game.name} >`;
+            $("#next-game").attr("data-id", game.id);
+        });
     }
 
-    nextGame() {
-        $.getJSON(`/games/${this.id + 1}`, data => {
-            return new Game(data);
-        });
+    async nextGame() {
+        const data = await $.getJSON(`/games/${this.id + 1}`);
+        return new Game(data);
     }
 
     async prevGame() {
