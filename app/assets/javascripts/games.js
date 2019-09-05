@@ -25,6 +25,56 @@ const gamesIndexListeners = () => {
             });
         }
     });
+
+    $(document).on("click", ".create-game", () => {
+        newGameForm();
+    });
+};
+
+const newGameForm = () => {
+    const html = `
+    <form class="new_game" id="new_game">
+        <div class="form-group">
+        <label for="game_name">Name</label>
+        <input class="form-control" type="text" name="game[name]" id="game_name">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="game_token_cost">Token cost</label>
+            <input class="form-control" type="number" name="game[token_cost" id="game_token_cost">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="game_manufacturer">Manufacturer</label>
+            <select name="game[manufacturer]" id="game_manufacturer_id">
+                <option>Choose a Manufacturer</option>
+            </select>
+        </div>
+        <h4>Or create a new manufacturer</h4>
+        <div class="form-group">
+            <label for="game_manufacturer_attributes_manufacturer_name">Manufacturer Name</label>
+            <input class="form-control" type="text" name="game[manufacturer_attributes][name]" id="game_manufacturer_attributes_name">
+        </div>
+        <input type="submit" name="commit" value="Create Game" class="btn btn-primary">
+    </form>`;
+
+    $(".create-game-container").html(html);
+    $("#game-form-button").html("<button class='btn btn-primary never-mind'>Never mind</button>");
+    $(document).on("click", ".never-mind", () => {
+       neverMind();
+    });
+
+    $.getJSON("/manufacturers", data => {
+        for (const i in data) {
+            const m = new Manufacturer(data[i]);
+            m.addToSelect();
+        }
+    });
+};
+
+const neverMind = () => {
+    $(".create-game-container").html("");
+    $("#game-form-button").html("<button class='btn btn-primary create-game'>Create Game</button>");
 };
 
 const gameShowListeners = () => {

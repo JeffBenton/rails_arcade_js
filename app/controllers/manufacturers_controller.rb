@@ -5,6 +5,10 @@ class ManufacturersController < ApplicationController
 
   def index
     @manufacturers = Manufacturer.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @manufacturers}
+    end
   end
 
   def show
