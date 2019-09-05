@@ -85,12 +85,18 @@ class Game {
     }
 
     async nextGame() {
-        const data = await $.getJSON(`/games/${this.id + 1}`);
+        let data = await $.getJSON(`/games/${this.id + 1}`);
+        if (data == null) {
+            data = await $.getJSON("/games/1");
+        }
         return new Game(data);
     }
 
     async prevGame() {
-        const data = await $.getJSON(`/games/${this.id - 1}`);
+        let data = await $.getJSON(`/games/${this.id - 1}`);
+        if (data == null) {
+            data = await $.getJSON('/games/last');
+        }
         return new Game(data);
     }
 }

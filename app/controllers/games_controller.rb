@@ -23,6 +23,11 @@ class GamesController < ApplicationController
     @games = Game.cheapest
   end
 
+  def last
+    game = Game.last
+    render json: game
+  end
+
   def show
     respond_to do |format|
       format.html {
