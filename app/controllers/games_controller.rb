@@ -24,6 +24,14 @@ class GamesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html {
+        @next = @game.next
+        @previous = @game.previous
+        render :show
+      }
+      format.json { render json: @game}
+    end
   end
 
 

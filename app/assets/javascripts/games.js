@@ -1,10 +1,11 @@
 $(() => {
-    gamesListeners();
+    gamesIndexListeners();
+    gameShowListeners();
 });
 
-const gamesListeners = () => {
+const gamesIndexListeners = () => {
     $(document).on("click", ".all-games", () => {
-        if($("#all-games")[0].innerText == "") {
+        if($("#all-games")[0].innerText === "") {
             $.getJSON("/games", data => {
                 for (const i in data) {
                     const game = new Game(data[i]);
@@ -15,14 +16,34 @@ const gamesListeners = () => {
     });
 
     $(document).on("click", ".playable-games", () => {
-        if($("#playable-games")[0].innerText == "") {
+        if($("#playable-games")[0].innerText === "") {
             $.getJSON("/games/playable", data => {
                 for (const i in data) {
-                    const game = new Game(data[i])
+                    const game = new Game(data[i]);
                     $("#playable-games").append(game.gameLink());
                 }
             });
         }
+    });
+};
+
+const gameShowListeners = () => {
+    $(document).on("click", "#previous-game", (e) => {
+        e.preventDefault();
+        const prevId = parseInt($("#previous-game").attr("data-id"));
+        $.getJSON("/games/" + prevId, data => {
+            const game = new Game(data);
+            game.display();
+        });
+    });
+
+    $(document).on("click", "#next-game", (e) => {
+        e.preventDefault();
+        const nextId = parseInt($("#next-game").attr("data-id"));
+        $.getJSON("/games/" + nextId, data => {
+            const game = new Game(data);
+            game.display();
+        });
     });
 };
 
@@ -36,5 +57,19 @@ class Game {
 
     gameLink() {
         return `<div><a href="/games/${this.id}">${this.name} - ${this.token_cost} Tokens</a></div>`;
+    }
+
+    display() {
+        const content = `
+        <div class="row">
+            <h2 class="col col-md-10">${this.name}</h2>
+         </div>
+        
+         <div class="row">
+            <h4 class="col">${this.token_cost} tokens.</h4>
+         </div>
+        `;
+
+        $(".game-content").html(content);
     }
 }

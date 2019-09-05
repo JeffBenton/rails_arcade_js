@@ -1,5 +1,4 @@
 <div class="row">
-  <h2 class="col col-md-10"><%= @game.name %></h2>
   <% if current_user.admin %>
     <%= button_to "Edit", edit_game_path(@game), method: 'get', class: "btn btn-primary"%>
     <%= button_to "Delete", game_path(@game), method: 'delete', class: "btn btn-danger"%>
@@ -7,7 +6,18 @@
 </div>
 
 <div class="row">
-  <h4 class="col"><%= @game.token_cost %> tokens.</h4>
+  <div class="col col-md-3"><a href="#" id="previous-game" data-id="<%= @previous.id %>">< <%= @previous.name %></a></div>
+  <div class="col offset-md-6 col-md-3"><a href="#" id="next-game" data-id="<%= @next.id %>"><%= @next.name %> ></a></div>
+</div>
+
+<div class="game-content">
+  <div class="row">
+    <h2 class="col col-md-10"><%= @game.name %></h2>
+  </div>
+
+  <div class="row">
+    <h4 class="col"><%= @game.token_cost %> tokens.</h4>
+  </div>
 </div>
 
 <div class="row">
