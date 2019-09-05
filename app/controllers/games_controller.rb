@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    params[:manufacturer_id].nil? ? @games = Game.all : @games = Manufacturer.find_by(id: params[:manufacturer_id]).games
+    params[:manufacturer_id].nil? ? @games = Game.order(name: :asc) : @games = Manufacturer.find_by(id: params[:manufacturer_id]).games
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @games }
