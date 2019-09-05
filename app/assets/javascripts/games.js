@@ -31,7 +31,7 @@ const gameShowListeners = () => {
     $(document).on("click", "#previous-game", (e) => {
         e.preventDefault();
         const prevId = parseInt($("#previous-game").attr("data-id"));
-        $.getJSON("/games/" + prevId, data => {
+        $.getJSON(`/games/${prevId}`, data => {
             const game = new Game(data);
             game.display();
         });
@@ -40,7 +40,7 @@ const gameShowListeners = () => {
     $(document).on("click", "#next-game", (e) => {
         e.preventDefault();
         const nextId = parseInt($("#next-game").attr("data-id"));
-        $.getJSON("/games/" + nextId, data => {
+        $.getJSON(`/games/${nextId}`, data => {
             const game = new Game(data);
             game.display();
         });
@@ -71,5 +71,18 @@ class Game {
         `;
 
         $(".game-content").html(content);
+        $("#plays_game_id")[0].value = this.id;
+        console.log(this.prevGame());
+    }
+
+    nextGame() {
+        $.getJSON(`/games/${this.id + 1}`, data => {
+            return new Game(data);
+        });
+    }
+
+    async prevGame() {
+        const data = await $.getJSON(`/games/${this.id - 1}`);
+        return new Game(data);
     }
 }

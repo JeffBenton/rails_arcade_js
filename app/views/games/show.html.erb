@@ -22,7 +22,6 @@
 
 <div class="row">
   <%= form_tag "/play", method: "post" do %>
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag 'plays[game_id]', @game.id %>
     <%= hidden_field_tag 'plays[user_id]', session[:user_id] %>
     <div class="form_group">
