@@ -33,21 +33,42 @@ const gamesIndexListeners = () => {
 
 const newGameForm = () => {
     $(".create-game-container").load("/games/form");
-    // $("#game-form-button").html("<button class='btn btn-primary never-mind'>Never mind</button>");
-    // $(document).on("click", ".never-mind", () => {
-    //    neverMind();
-    // });
-    //
-    // $.getJSON("/manufacturers", data => {
-    //     for (const i in data) {
-    //         const m = new Manufacturer(data[i]);
-    //         m.addToSelect();
-    //     }
-    // });
+    $("#game-form-button").html("<button class='btn btn-primary never-mind'>Never mind</button>");
+    $(document).on("click", ".never-mind", () => {
+       neverMind();
+    });
+
+    $(document).on("submit", ".create-game-form", (e) => {
+       e.preventDefault();
+       const values = $(".create-game-form").serialize();
+       const posting = $.post('/games', values);
+
+       posting.done(data => {
+           if (data.hasOwnProperty("id")) {
+               handleSuccess();
+           }
+           else {
+               handleErrors(data);
+           }
+       });
+    });
+};
+
+const handleSuccess = () => {
+    neverMind();
+
+};
+
+const handleErrors = (errors) => {
+    $(".errors").html("");
+    for (const i in errors) {
+        $(".errors").append(`<div>${i} ${errors[i].join(" and ")}</div>`)
+    }
 };
 
 const neverMind = () => {
     $(".create-game-container").html("");
+    $(".errors").html("");
     $("#game-form-button").html("<button class='btn btn-primary create-game'>Create Game</button>");
 };
 
