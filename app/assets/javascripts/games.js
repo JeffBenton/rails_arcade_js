@@ -56,7 +56,14 @@ const newGameForm = () => {
 
 const handleSuccess = () => {
     neverMind();
-
+    if ($("#all-games")[0].innerText != "") {
+        $("#all-games")[0].innerText = "";
+        $(".all-games").click();
+    }
+    if ($("#playable-games")[0].innerText != "") {
+        $("#playable-games")[0].innerText = "";
+        $(".playable-games").click();
+    }
 };
 
 const handleErrors = (errors) => {
