@@ -39,6 +39,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def form
+    render "_form",
+           layout: false
+  end
 
   def new
     @game = Game.new(manufacturer_id: params[:manufacturer_id])
