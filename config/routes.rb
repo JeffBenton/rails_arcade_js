@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/games/playable', to: 'games#playable'
   get '/games/last', to: 'games#last'
   get '/games/form', to: 'games#form'
+  get '/plays/game_plays/:id', to: 'plays#game_plays'
 
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
   resources :games, only: [:index, :show, :new, :create, :edit, :update, :destroy]

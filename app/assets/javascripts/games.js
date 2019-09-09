@@ -86,7 +86,17 @@ const gameShowListeners = () => {
         $.getJSON(`/games/${prevId}`, data => {
             const game = new Game(data);
             game.display();
+            $.getJSON(`/plays/game_plays/${game.id}`, data => {
+                let html = "";
+                for (const i in data) {
+                    const play = new Play(data[i]);
+                    console.log(moment(play.created_at).format());
+                    html += play.display();
+                }
+                $(".past-plays").html(html);
+            });
         });
+
     });
 
     $(document).on("click", "#next-game", (e) => {
@@ -95,6 +105,14 @@ const gameShowListeners = () => {
         $.getJSON(`/games/${nextId}`, data => {
             const game = new Game(data);
             game.display();
+            $.getJSON(`/plays/game_plays/${game.id}`, data => {
+                let html = "";
+                for (const i in data) {
+                    const play = new Play(data[i]);
+                    html += play.display();
+                }
+                $(".past-plays").html(html);
+            });
         });
     });
 };

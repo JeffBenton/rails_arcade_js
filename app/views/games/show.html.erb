@@ -31,3 +31,9 @@
     <%= button_tag "Play", class: "btn btn-primary"%>
   <% end %>
 </div>
+
+<div class="past-plays row">
+  <% @plays.each do |play| %>
+    <div class="row col"><%= play.user.name %> on <%= play.difficulty %> at <%= play.created_at.strftime("%l:%M%P %b %e, %Y") %></div>
+  <% end %>
+</div>

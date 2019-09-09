@@ -33,6 +33,7 @@ class GamesController < ApplicationController
       format.html {
         @next = @game.next
         @previous = @game.previous
+        @plays = Play.game_plays(@game.id)
         render :show
       }
       format.json { render json: @game}

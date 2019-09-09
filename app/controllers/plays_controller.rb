@@ -15,6 +15,11 @@ class PlaysController < ApplicationController
     end
   end
 
+  def game_plays
+    @plays = Play.game_plays(params[:id])
+    render json: @plays
+  end
+
   private
 
   def plays_params
