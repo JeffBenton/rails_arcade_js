@@ -84,14 +84,11 @@ const gameShowListeners = () => {
         $.getJSON(`/games/${prevId}`, data => {
             const game = new Game(data);
             game.display();
-            $.getJSON(`/plays/game_plays/${game.id}`, data => {
-                let html = "";
-                for (const i in data) {
-                    const play = new Play(data[i]);
-                    html += play.display();
-                }
-                $(".past-plays").html(html);
-            });
+            let html = "";
+            for (const i in game.plays) {
+                html += game.plays[i].display();
+            }
+            $(".past-plays").html(html);
         });
 
     });
@@ -102,14 +99,11 @@ const gameShowListeners = () => {
         $.getJSON(`/games/${nextId}`, data => {
             const game = new Game(data);
             game.display();
-            $.getJSON(`/plays/game_plays/${game.id}`, data => {
-                let html = "";
-                for (const i in data) {
-                    const play = new Play(data[i]);
-                    html += play.display();
-                }
-                $(".past-plays").html(html);
-            });
+            let html = "";
+            for (const i in game.plays) {
+                html += game.plays[i].display();
+            }
+            $(".past-plays").html(html);
         });
     });
 };
@@ -120,6 +114,7 @@ class Game {
         this.name = data.name;
         this.token_cost = data.token_cost;
         this.manufacturer_id = data.manufacturer_id;
+        this.plays = data.plays.map(play => new Play(play));
     }
 
     gameLink() {

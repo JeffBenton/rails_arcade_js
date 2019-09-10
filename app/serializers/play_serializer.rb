@@ -1,4 +1,5 @@
 class PlaySerializer < ActiveModel::Serializer
-  attributes :id, :created_at, :difficulty
-  belongs_to :user
+  attributes :id, :created_at, :difficulty, :user
+  # belongs_to :user
+  belongs_to :game
 end
