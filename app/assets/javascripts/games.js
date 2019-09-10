@@ -45,7 +45,7 @@ const newGameForm = () => {
 
        posting.done(data => {
            if (data.hasOwnProperty("id")) {
-               handleSuccess();
+               handleSuccess(data);
            }
            else {
                handleErrors(data);
@@ -54,15 +54,13 @@ const newGameForm = () => {
     });
 };
 
-const handleSuccess = () => {
+const handleSuccess = (data) => {
     neverMind();
     if ($("#all-games")[0].innerText != "") {
-        $("#all-games")[0].innerText = "";
-        $(".all-games").click();
+        $("#all-games").append(new Game(data).gameLink());
     }
     if ($("#playable-games")[0].innerText != "") {
-        $("#playable-games")[0].innerText = "";
-        $(".playable-games").click();
+        $("#playable-games").append(new Game(data).gameLink());
     }
 };
 
@@ -90,7 +88,6 @@ const gameShowListeners = () => {
                 let html = "";
                 for (const i in data) {
                     const play = new Play(data[i]);
-                    console.log(moment(play.created_at).format());
                     html += play.display();
                 }
                 $(".past-plays").html(html);
