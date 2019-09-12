@@ -114,6 +114,7 @@ class Game {
         this.name = data.name;
         this.token_cost = data.token_cost;
         this.manufacturer_id = data.manufacturer_id;
+        console.log(data);
         this.plays = data.plays.map(play => new Play(play));
     }
 
