@@ -12,10 +12,10 @@ class Game < ApplicationRecord
   scope :cheapest, -> () { order(token_cost: :asc).limit(3) }
 
   def next
-    Game.find_by_id(self.id + 1) || Game.first
+    Game.where("id > ?", self.id).first || Game.first
   end
 
   def previous
-    Game.find_by_id(self.id - 1) || Game.last
+    Game.where("id < ?", self.id).last || Game.last
   end
 end

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get '/games/cheapest', to: 'games#cheapest'
   get '/games/playable', to: 'games#playable'
-  get '/games/last', to: 'games#last'
   get '/games/form', to: 'games#form'
 
   resources :users, only: [:index, :show, :new, :create, :edit, :update]

@@ -82,8 +82,8 @@ const gameShowListeners = () => {
         e.preventDefault();
         const prevId = parseInt($("#previous-game").attr("data-id"));
         $.getJSON(`/games/${prevId}`, data => {
-            const game = new Game(data);
-            game.display();
+            const game = new Game(data[1]);
+            game.display(new Game(data[0]), new Game(data[2]));
             let html = "";
             for (const i in game.plays) {
                 html += game.plays[i].display();
@@ -97,8 +97,8 @@ const gameShowListeners = () => {
         e.preventDefault();
         const nextId = parseInt($("#next-game").attr("data-id"));
         $.getJSON(`/games/${nextId}`, data => {
-            const game = new Game(data);
-            game.display();
+            const game = new Game(data[1]);
+            game.display(new Game(data[0]), new Game(data[2]));
             let html = "";
             for (const i in game.plays) {
                 html += game.plays[i].display();
@@ -121,7 +121,7 @@ class Game {
         return `<div><a href="/games/${this.id}">${this.name} - ${this.token_cost} Tokens</a></div>`;
     }
 
-    display() {
+    display(previous, next) {
         const content = `
         <div class="row">
             <h2 class="col col-md-10">${this.name}</h2>
@@ -135,16 +135,12 @@ class Game {
         $(".game-content").html(content);
         $("#plays_game_id")[0].value = this.id;
 
-        this.prevGame().then(game => {
-            $("#previous-game")[0].innerText = `< ${game.name}`;
-            $("#previous-game").attr("data-id", game.id);
-        });
+        $("#previous-game")[0].innerText = `< ${previous.name}`;
+        $("#previous-game").attr("data-id", previous.id);
 
-        this.nextGame().then(game => {
-            $("#next-game")[0].innerText = `${game.name} >`;
-            $("#next-game").attr("data-id", game.id);
-        });
-    }
+        $("#next-game")[0].innerText = `${next.name} >`;
+        $("#next-game").attr("data-id", next.id);
+}
 
     async nextGame() {
         let data = await $.getJSON(`/games/${this.id + 1}`);

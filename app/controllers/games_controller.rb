@@ -23,11 +23,6 @@ class GamesController < ApplicationController
     @games = Game.cheapest
   end
 
-  def last
-    game = Game.last
-    render json: game
-  end
-
   def show
     respond_to do |format|
       format.html {
@@ -36,7 +31,7 @@ class GamesController < ApplicationController
         @plays = Play.game_plays(@game.id)
         render :show
       }
-      format.json { render json: @game}
+      format.json { render json: [@game.previous, @game, @game.next] }
     end
   end
 
