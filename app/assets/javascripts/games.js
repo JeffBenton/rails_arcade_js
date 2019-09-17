@@ -140,21 +140,5 @@ class Game {
 
         $("#next-game")[0].innerText = `${next.name} >`;
         $("#next-game").attr("data-id", next.id);
-}
-
-    async nextGame() {
-        let data = await $.getJSON(`/games/${this.id + 1}`);
-        if (data == null) {
-            data = await $.getJSON("/games/1");
-        }
-        return new Game(data);
-    }
-
-    async prevGame() {
-        let data = await $.getJSON(`/games/${this.id - 1}`);
-        if (data == null) {
-            data = await $.getJSON('/games/last');
-        }
-        return new Game(data);
     }
 }
