@@ -1,4 +1,4 @@
-# Rails_Arcade
+# Rails_Arcade_js
 
 This is a virtual arcade where users can spend tokens to play arcade games.
 
@@ -8,6 +8,7 @@ To install this application -
 - git clone this repo
 - cd rails_arcade
 - bundle install
+- rake db:migrate
 
 To start the application
 - rails s
